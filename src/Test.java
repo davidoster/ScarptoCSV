@@ -47,7 +47,7 @@ public class Test {
             e.printStackTrace();
         }
 
-        BookingCom b= new BookingCom().setSearchString("Sharjah").setRoom(2).setRatings(new int[]{1}).setCheckIn("2017-05-15").setCheckOut("2017-05-18");
+        BookingCom b= new BookingCom().setSearchString("Athens").setRoom(2).setRatings(new int[]{1}).setCheckIn("2020-03-07").setCheckOut("2020-03-07");
         System.out.println(b.getURL());
 
         ArrayList<Object> arrString=b.fetchData(createInformationFetchList(),10,Booking.class);
