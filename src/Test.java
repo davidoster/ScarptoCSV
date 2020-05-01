@@ -1,5 +1,6 @@
 import BookingDotCom.Booking;
 import BookingDotCom.BookingCom;
+import BookingDotCom.HotelsGr;
 import CSVWriter.Exceptions.FieldMismatchException;
 import Documents.Information;
 import CSVWriter.Writer;
@@ -38,7 +39,7 @@ public class Test {
     }
 
     public static void main(String[] args){
-        String csvFile = "result.csv";
+        String csvFile = "result_trivago.csv";
         String[] fields={"Name","Address","Stars","Rating", "Price","Features","Description","Link"};
         Writer writer=null;
         try {
@@ -47,10 +48,27 @@ public class Test {
             e.printStackTrace();
         }
 
-        BookingCom b= new BookingCom().setSearchString("Athens").setRoom(2).setRatings(new int[]{1}).setCheckIn("2020-03-07").setCheckOut("2020-03-07");
+        BookingCom b = new BookingCom().setSearchString("Patras").setRoom(1).setRatings(new int[]{1,2,3,4,5}).setCheckIn("2020-04-09").setCheckOut("2020-04-09");
         System.out.println(b.getURL());
 
-        ArrayList<Object> arrString=b.fetchData(createInformationFetchList(),10,Booking.class);
+        HotelsGr hotelsGr = new HotelsGr().setSearchString("patras").setRoomAndAdults(0, 2).setCheckIn("2020-06-02").setCheckOut("2020-06-03");
+        System.out.println(hotelsGr.getURL());
+        ArrayList<Object> hotelsString = hotelsGr.fetchData(createInformationFetchList(),100,HotelsGr.class);
+
+        for(Object datas:hotelsString){
+            Booking hotel = (Booking)datas;
+            try {
+                writer.addRow(new String[]{hotel.getName(),hotel.getAddress(),hotel.getStars()+"",hotel.getRating()+"",hotel.getPrice()+"",hotel.getFeatures(),hotel.getDescription(),hotel.getLink()});
+            } catch (FieldMismatchException e) {
+                e.printStackTrace();
+            }
+        }
+        writer.write();
+        writer.close();
+
+
+        /*
+        ArrayList<Object> arrString=b.fetchData(createInformationFetchList(),100,Booking.class);
 
         for(Object datas:arrString){
             Booking hotel=(Booking)datas;
@@ -62,5 +80,7 @@ public class Test {
         }
         writer.write();
         writer.close();
+
+         */
     }
 }

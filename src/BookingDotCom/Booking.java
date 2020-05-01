@@ -4,6 +4,10 @@ package BookingDotCom;
  * Created by mohma on 5/15/2017.
  */
 public class Booking {
+    String name,address,features, description, link;
+    int stars;
+    float rating,price;
+
     public static String DELIMITER="~~~";
 
     public String getName() {
@@ -38,9 +42,7 @@ public class Booking {
         return price;
     }
 
-    String name,address,features, description, link;
-    int stars;
-    float rating,price;
+
 
     public Booking(String data){
         String[] datas=data.split("~~~");
@@ -60,7 +62,7 @@ public class Booking {
         catch (Exception e){
             rating=0;
         }
-        String prices[]=datas[4].split("AED");
+        String prices[]=datas[4].split("EUR");
         if(prices.length>1){
             try {
                 prices[1]=prices[1].replace(",","").trim();
